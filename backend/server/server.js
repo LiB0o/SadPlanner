@@ -13,17 +13,19 @@ const ROLE_DEFAULT = "user";
 
 const PORT = process.env.PORT || 4000;
 
-dotenv.config();
+
 
 const app = express();
-
-app.use(cookieParser())
 
 // CORS DOIT ETRE AVANT LES ROUTES
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }));
+
+app.use(cookieParser())
+
+dotenv.config();
 
 app.use(express.json());
 
@@ -54,8 +56,6 @@ const client = await authentification.getClient();
 
 const sheet = google.sheets({version:"v4",auth:client});
 
-
-
 app.get('/api/sheet', async (req, res) =>{
   try{
     // Lecture des valeurs
@@ -68,17 +68,11 @@ app.get('/api/sheet', async (req, res) =>{
   } catch (err) {
     console.error(err);
     res.status(500).send("Erreur lors de la récupération de la Google Sheet");
-    //console.error("Erreur Google API :", err.message);
-    //console.error(err);
-    //res.status(500).json({
-    //error: err.message,
-  //});
   }
 });
 
 app.get('/api/sheet/:id', async (req, res) => {
   const id = req.params.id;
-  //const nom = decodeURIComponent(req.params.nom);
 
   try {
     // Récupère tous les onglets
@@ -259,6 +253,7 @@ app.get("/auth/discord/callback", async (req, res) => {
     res.cookie("token", jwtToken, {
       httpOnly: false,        // possible à lire depuis JS côté client
       secure: false,         // mettre true en prod HTTPS
+      sameSite: "none",       //OBLIGATOIRE en cross-origin
       maxAge: 30 * 60 * 1000, // 30 minutes en ms
       sameSite: "lax",
       path: "/", //accès partout
@@ -290,9 +285,11 @@ app.get("/auth/discord/callback", async (req, res) => {
 });
 
 //check if the person is connected
-app.get('/api/me', (req, res) => {
-  const token = req.cookies.token; //BON NOM
+app.get("/api/me", (req, res) => {
+  /*console.error("Requête reçue:", req.method, req.url);
+  console.log("Cookies reçus :", req.cookies);
 
+  const token = req.cookies.token;
   if (!token) return res.sendStatus(410);
 
   let payload;
@@ -303,10 +300,21 @@ app.get('/api/me', (req, res) => {
   }
 
   const user = connectedUsers.get(payload.id);
-
   if (!user) return res.sendStatus(412);
 
-  res.status(200).json(user);
+  //ON RENVOIE LES INFOS UTILES
+  res.status(200).json({
+    id: payload.id,
+    role: payload.role,
+  });*/
+
+  console.log("Cookies reçus :", req.cookies);
+
+  const token = req.cookies.token;
+  if (!token) return res.sendStatus(410);
+
+  res.sendStatus(200);
+
 });
 
 //retourne toutes les connections si user est admin
