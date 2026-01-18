@@ -1,0 +1,25 @@
+{
+  "name": "sadplanninggestion",
+  "version": "1.0.0",
+  "main": "backend/bot/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeaVincent01/SadPlanningGestion.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeaVincent01/SadPlanningGestion/issues"
+  },
+  "homepage": "https://github.com/LeaVincent01/SadPlanningGestion#readme",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.2.3",
+    "googleapis": "^169.0.0"
+  }
+}
