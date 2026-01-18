@@ -1,6 +1,6 @@
 INSTALLER:
 
-1) une fois dézippé, aller dans backend/server et déposé votre ./env
+1) une fois dézippé, aller dans backend/server et déposé votre ./env et clé json (pour les fonctions avec google)
 
 
 LANCER LE PROJET (WEB)
@@ -28,3 +28,4 @@ NOTES DÉVELOPPEUR:
 
 La commande modify a un bug l'empêchant de cloturer la requête.
 (La modification se fait sans encombre, vous pouvez le vérifier en utilisant /planning pour voir le changement.)
+
