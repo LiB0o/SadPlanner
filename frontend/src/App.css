@@ -1,0 +1,22 @@
+.banner {
+  background-color: #222;
+  padding: 1rem;
+}
+
+.banner nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.banner a {
+  color: white;
+  text-decoration: none;
+}
+
+.banner a:hover {
+  text-decoration: underline;
+}
+
+.content {
+  padding: 2rem;
+}
