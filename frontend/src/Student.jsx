@@ -76,38 +76,40 @@ export default function Student() {
   }
 };
 
+const testCookie = async () => {
+  try {
+    const res = await fetch(
+      `http://localhost:4000/api/me`,{credentials : "include"} // adapte le port et l'id
+      )
+      console.log(res);
+    }
+    catch(err){
+      console.log(err);
+    }
+};
+
 useEffect(() => {
-  const init = async () => {
+
     load();
+    //testCookie(); //Pour tester si la session était encore valide
+    const cookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+
+    if (!cookie) return;
 
     try {
-      const stillConnected = await fetch("http://localhost:4000/api/me", {
-        credentials: "include",
-      });
-
-      if (!stillConnected.ok) return;
-
-      const cookie = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("token="));
-
-      if (!cookie) return;
-
       const token = cookie.split("=")[1];
       const payload = jwtDecode(token);
 
-      // ✅ CONDITION D'AUTORISATION
+      // CONDITION CLÉ
       if (payload.role === "admin" || payload.id === id) {
         setCanEdit(true);
       }
     } catch (err) {
-      console.error("NOT CONNECTED", err);
+      console.error("JWT invalide", err);
     }
-  };
-
-  init();
-}, [id]);
-
+  }, [id]);
 
     //useEffect(() => {load()}, [])
 
