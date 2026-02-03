@@ -29,3 +29,5 @@ NOTES DÉVELOPPEUR:
 La commande modify a un bug l'empêchant de cloturer la requête.
 (La modification se fait sans encombre, vous pouvez le vérifier en utilisant /planning pour voir le changement.)
 
+
+Étudiants : BOO Lison et VINCENT Léa
